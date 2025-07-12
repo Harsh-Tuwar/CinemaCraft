@@ -28,14 +28,13 @@ class Api {
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
 
     $defaultHeaders = [
-      'Content-Type: application/json',
       'Accept: application/json',
     ];
 
     if ($jsonData !== null) {
       $defaultHeaders[] = 'Content-Type: application/json';
     }
-
+    
     $allHeaders = array_merge($defaultHeaders, $this->formatHeaders($headers));
     curl_setopt($ch, CURLOPT_HTTPHEADER, $allHeaders);
 
@@ -43,9 +42,9 @@ class Api {
     if (in_array($method, ['POST', 'PUT']) && $jsonData !== null) {
       curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
     }
-
+    
     $response = curl_exec($ch);
-
+    
     if (curl_errno($ch)) {
       $error = curl_error($ch);
       curl_close($ch);
@@ -59,7 +58,7 @@ class Api {
     if ($decoded === null) {
       throw new Exception("Invalid JSON response");
     }
-
+    
     return $decoded;
   }
 

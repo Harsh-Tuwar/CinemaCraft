@@ -14,7 +14,7 @@ class Movie extends Controller {
 
     if (!empty($query)) {
       try {
-        $moview = $this->omdbApi->search($query);
+        $movies = $this->omdbApi->search($query);
       } catch (Exception $e) {
         $movies = ['error' => $e->getMessage()];
       }
@@ -23,6 +23,7 @@ class Movie extends Controller {
     }
 
     $this->view('movie/results', ['movies' => $movies]);
+    // header('Location: /movie/results');
     die;
   }
 }

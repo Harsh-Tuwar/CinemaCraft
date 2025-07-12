@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <form action="results.php" method="GET">
+      <form action="/movie/search" method="GET">
         <div class="input-group shadow-sm">
           <input 
             type="text" 

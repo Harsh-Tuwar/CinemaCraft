@@ -27,7 +27,7 @@ class App {
         /* if controller exists in the URL, then go to it
          * if not, then go to this->controller which is defaulted to home 
          */
-
+        
         if (file_exists('app/controllers/' . $url[1] . '.php')) {
             $this->controller = $url[1];
 
@@ -51,6 +51,14 @@ class App {
 
         $this->controller = new $this->controller;
 
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            // Clean up query parameters from URL[2]
+            if (isset($url[2])) {
+                // Split by '?' to remove query string if present
+                $url[2] = explode('?', $url[2])[0];
+            }
+        }
+        
         // check to see if method is passed
         // check to see if it exists
         if (isset($url[2])) {
@@ -61,12 +69,14 @@ class App {
             }
         }
 
-
+        // echo '<pre>';
+        // echo print_r($this->method);
+        // die;
         
         // This will rebase the params to a new array (starting at 0)
         // if params exist
         $this->params = $url ? array_values($url) : [];
-        call_user_func_array([$this->controller, $this->method], $this->params);		
+        call_user_func_array([$this->controller, $this->method], $this->params);
     }
 
     public function parseUrl() {

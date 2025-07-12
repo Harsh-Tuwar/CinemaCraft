@@ -13,7 +13,14 @@ class OmdbApi extends Api {
       'apikey' => $this->apiKey,
     ];
 
-    return $this->makeRequest('', $params);
+    $results = $this->makeRequest('', $params);
+
+    // echo '<pre>';
+    // echo htmlspecialchars(print_r($results, true));
+    // die;
+    
+    // return $this->makeRequest('', $params);
+    return $results;
   }
 }
 
