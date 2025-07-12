@@ -47,6 +47,7 @@
           <i class="bi bi-shield-lock-fill me-1"></i> COSC 4806
         </a>
         <div class="d-flex">
+          <a href="/home" class="btn btn-link">Search a movie</a>
           <a href="/login" class="btn btn-outline-primary me-2">Login</a>
           <a href="/create" class="btn btn-primary">Register</a>
         </div>
