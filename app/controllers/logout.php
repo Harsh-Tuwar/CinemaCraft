@@ -6,6 +6,6 @@ class Logout extends Controller {
 	    session_start();
         $_SESSION = array();
         session_destroy();
-        header('location:/login');
+        header('location:/home');
     }
 }

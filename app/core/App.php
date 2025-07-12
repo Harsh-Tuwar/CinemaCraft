@@ -10,8 +10,10 @@ class App {
     public function __construct() {
         if (isset($_SESSION['auth']) == 1) {
             //$this->method = 'index';
+            $this->controller = 'dashboard';
+        } else {
             $this->controller = 'home';
-        } 
+        }
 
         // This will return a broken up URL
         // it will be /controller/method
@@ -19,7 +21,7 @@ class App {
 
         // only render reports page if admin is logged in
         if (isset($_SESSION['auth']) == 1 && !isset($_SESSION['admin']) && $url[1] == 'reports') {
-            header('Location: /home');
+            header('Location: /dashboard');
         }
         
         /* if controller exists in the URL, then go to it

@@ -18,7 +18,7 @@ class Login extends Controller {
 			$access_log->logAccess($username, $success_attempt);
 			
 			if ($success_attempt === 1) {
-				header('Location: /home');
+				header('Location: /dashboard');
 			} else {
 				header('Location: /login');
 			}			
