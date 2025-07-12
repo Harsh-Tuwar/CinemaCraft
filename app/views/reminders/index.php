@@ -3,7 +3,7 @@
 <div class="container mt-5">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/home">Home</a></li>
+      <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
       <li class="breadcrumb-item active" aria-current="page">Reminders</li>
     </ol>
   </nav>

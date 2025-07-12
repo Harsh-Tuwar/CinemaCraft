@@ -1,11 +1,4 @@
-  <?php
-  if (isset($_SESSION['auth']) && $_SESSION['auth'] == 1) {
-      header('Location: /dashboard');
-      exit;
-  }
-  ?>
-
-  <!DOCTYPE html>
+<!DOCTYPE html>
   <html lang="en">
   <head>
     <meta charset="UTF-8">

@@ -50,7 +50,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm border-bottom">
       <div class="container">
-        <a class="navbar-brand" href="/home">COSC 4806</a>
+        <a class="navbar-brand" href="/dashboard">COSC 4806</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -60,7 +60,7 @@
           <!-- Left Links -->
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link<?= $_SERVER['REQUEST_URI'] === '/home' ? ' active' : '' ?>" href="/home">Home</a>
+              <a class="nav-link<?= $_SERVER['REQUEST_URI'] === '/dashboard' ? ' active' : '' ?>" href="/dashboard">Dashboard</a>
             </li>
             <li class="nav-item">
               <a class="nav-link<?= str_contains($_SERVER['REQUEST_URI'], 'reminders') && !str_contains($_SERVER['REQUEST_URI'], 'reports') ? ' active' : '' ?>" href="/reminders">Reminders</a>
