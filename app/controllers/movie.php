@@ -23,7 +23,6 @@ class Movie extends Controller {
     }
 
     $this->view('movie/results', ['movies' => $movies]);
-    // header('Location: /movie/results');
     die;
   }
 }
