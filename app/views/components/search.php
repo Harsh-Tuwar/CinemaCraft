@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-6 mb-4">
       <form action="/movie/search" method="GET">
         <div class="input-group shadow-sm">
           <input 
