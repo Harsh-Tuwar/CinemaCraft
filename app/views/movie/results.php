@@ -2,7 +2,7 @@
 
 <style>
   body {
-    background-color: #f8f9fa; /* light neutral background */
+    background-color: #f8f9fa;
   }
   .movie-card {
     position: relative;
@@ -71,7 +71,7 @@
             <?php
               $poster = ($movie['Poster'] !== 'N/A' && !empty($movie['Poster'])) && getimagesize($movie['Poster'])
                 ? htmlspecialchars($movie['Poster'])
-                : "https://placehold.co/300x436";
+                : "https://placehold.co/300x436?text=" . urlencode($movie['Title']);
             ?>
             <img 
               src="<?= $poster ?>" 
