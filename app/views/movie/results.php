@@ -54,6 +54,17 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
+  .star-rating i {
+    font-size: 1.8rem;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .star-rating i.selected,
+  .star-rating i:hover,
+  .star-rating i:hover ~ i {
+    color: #f1c40f;
+  }
 </style>
 
 <main class="container py-4">
@@ -67,7 +78,7 @@
     <div class="row g-3">
       <?php foreach ($data['movies']['Search'] as $movie): ?>
         <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-          <div class="movie-card">
+          <div class="movie-card" data-bs-toggle="modal" data-bs-target="#reviewModal" data-title="<?= htmlspecialchars($movie['Title']) ?>">
             <?php
               $poster = ($movie['Poster'] !== 'N/A' && !empty($movie['Poster'])) && getimagesize($movie['Poster'])
                 ? htmlspecialchars($movie['Poster'])
@@ -88,7 +99,52 @@
   <?php else: ?>
     <p>No results found.</p>
   <?php endif; ?>
-
 </main>
+
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reviewModalLabel">Leave a Review</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p id="movieTitle" class="mb-3 fw-bold"></p>
+        <div class="star-rating">
+          <i class="bi bi-star" data-value="1"></i>
+          <i class="bi bi-star" data-value="2"></i>
+          <i class="bi bi-star" data-value="3"></i>
+          <i class="bi bi-star" data-value="4"></i>
+          <i class="bi bi-star" data-value="5"></i>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Submit Review</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const reviewModal = document.getElementById('reviewModal');
+  reviewModal.addEventListener('show.bs.modal', function (event) {
+    const card = event.relatedTarget;
+    const title = card.getAttribute('data-title');
+    const modalTitle = reviewModal.querySelector('#movieTitle');
+    modalTitle.textContent = title;
+
+    reviewModal.querySelectorAll('.star-rating i').forEach(star => star.classList.remove('selected'));
+  });
+
+  document.querySelectorAll('.star-rating i').forEach(star => {
+    star.addEventListener('click', function() {
+      const value = this.getAttribute('data-value');
+      document.querySelectorAll('.star-rating i').forEach(s => s.classList.remove('selected'));
+      for (let i = 0; i < value; i++) {
+        document.querySelectorAll('.star-rating i')[i].classList.add('selected');
+      }
+    });
+  });
+</script>
 
 <?php require_once 'app/views/templates/footer.php'; ?>
