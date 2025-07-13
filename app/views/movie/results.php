@@ -69,7 +69,7 @@
         <div class="col-6 col-sm-4 col-md-3 col-lg-2">
           <div class="movie-card">
             <?php
-              $poster = ($movie['Poster'] !== 'N/A' && !empty($movie['Poster']))
+              $poster = ($movie['Poster'] !== 'N/A' && !empty($movie['Poster'])) && getimagesize($movie['Poster'])
                 ? htmlspecialchars($movie['Poster'])
                 : "https://placehold.co/300x436";
             ?>
