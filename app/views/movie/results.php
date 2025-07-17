@@ -60,11 +60,11 @@
     cursor: pointer;
     transition: color 0.2s;
   }
-  .star-rating i.selected,
-  .star-rating i:hover,
-  .star-rating i:hover ~ i {
+  .star-rating i.selected {
     color: #f1c40f;
   }
+  /* .star-rating i:hover, */
+  /* .star-rating i:hover ~ i */
 </style>
 
 <main class="container py-4">
@@ -136,14 +136,41 @@
     reviewModal.querySelectorAll('.star-rating i').forEach(star => star.classList.remove('selected'));
   });
 
-  document.querySelectorAll('.star-rating i').forEach(star => {
-    star.addEventListener('click', function() {
-      const value = this.getAttribute('data-value');
-      document.querySelectorAll('.star-rating i').forEach(s => s.classList.remove('selected'));
-      for (let i = 0; i < value; i++) {
-        document.querySelectorAll('.star-rating i')[i].classList.add('selected');
+  function highlightStars(value) {
+    document.querySelectorAll('.star-rating i').forEach((star, index) => {
+      if (index < value) {
+        star.classList.add('bi-star-fill');
+        star.classList.add('selected');
+        star.classList.remove('bi-star');
+      } else {
+        star.classList.remove('bi-star-fill');
+        star.classList.remove('selected');
+        star.classList.add('bi-star');
       }
+    }); 
+  }
+
+  function handleSubmit() {
+    const selectedStars = document.querySelectorAll('.star-rating i.selected').length;
+    const reviewModal = document.getElementById('reviewModal');
+
+    console.log(`Selected Rating: ${selectedStars}`);
+    highlightStars(0);
+    const bootstrapModal = bootstrap.Modal.getInstance(reviewModal);
+    bootstrapModal.hide();
+  }
+  
+  const stars = document.querySelectorAll('.star-rating i');
+  stars.forEach((item) => {
+    item.addEventListener('mouseover', function() {
+      highlightStars(item.dataset.value);
     });
+
+    item.addEventListener('click', () => handleSubmit());
+  });
+
+  document.querySelector('.modal-footer button').addEventListener('click', function() {
+    handleSubmit();
   });
 </script>
 
