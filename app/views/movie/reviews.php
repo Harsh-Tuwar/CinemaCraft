@@ -70,34 +70,36 @@
     </ol>
   </nav>
 
-  <h1 class="mb-4 review-section-title">My Movie Reviews</h1>
+  <h1 class="review-section-title">My Movie Reviews</h1>
 
   <?php if (empty($data['reviews'])): ?>
     <div class="alert alert-warning bg-dark text-white border border-warning">No reviews submitted yet.</div>
   <?php else: ?>
-    <div class="review-scroll-container">
-      <?php foreach ($data['reviews'] as $review): ?>
-        <div class="movie-card">
-          <img 
-            src="<?= htmlspecialchars($review['moviePosterUrl'] ?? 'https://placehold.co/300x400?text=No+Poster') ?>" 
-            alt="<?= htmlspecialchars($review['movieTitle']) ?>"
-          >
-          <div class="movie-info">
-            <div class="movie-title"><?= htmlspecialchars($review['movieTitle']) ?></div>
-            <div class="movie-date">
-              <?= (new DateTime($review['createdAt']))->format('M j, Y') ?>
-            </div>
-            <div class="star-rating mt-1">
-              <?php
-                $rating = (int)$review['rating'];
-                for ($i = 1; $i <= 5; $i++) {
-                  echo $i <= $rating ? '★' : '☆';
-                }
-              ?>
+    <div class="position-relative" style="overflow: visible;">
+      <div class="review-scroll-container p-3">
+        <?php foreach ($data['reviews'] as $review): ?>
+          <div class="movie-card">
+            <img 
+              src="<?= htmlspecialchars($review['moviePosterUrl'] ?? 'https://placehold.co/300x400?text=No+Poster') ?>" 
+              alt="<?= htmlspecialchars($review['movieTitle']) ?>"
+            >
+            <div class="movie-info">
+              <div class="movie-title"><?= htmlspecialchars($review['movieTitle']) ?></div>
+              <div class="movie-date">
+                <?= (new DateTime($review['createdAt']))->format('M j, Y') ?>
+              </div>
+              <div class="star-rating mt-1">
+                <?php
+                  $rating = (int)$review['rating'];
+                  for ($i = 1; $i <= 5; $i++) {
+                    echo $i <= $rating ? '★' : '☆';
+                  }
+                ?>
+              </div>
             </div>
           </div>
-        </div>
-      <?php endforeach; ?>
+        <?php endforeach; ?>
+      </div>
     </div>
   <?php endif; ?>
 </div>
