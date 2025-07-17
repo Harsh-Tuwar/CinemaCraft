@@ -10,7 +10,11 @@ class Reviews extends Controller {
       $rating = $_POST['rating'];
 
       $this->model('Review')->save($userId, $title, $poster, $imdbId, $rating);
-      header('Location: /home');
+      if (isset($_SESSION['auth'])) {
+        header('Location: /dashboard');
+      } else {
+        header('Location: /home');
+      }
       exit;
     }
   }
