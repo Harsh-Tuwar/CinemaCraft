@@ -29,6 +29,7 @@ class Review {
     $statement->bindValue(':user_id', $userId, PDO::PARAM_INT);
     $statement->execute();
     $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+    
     return $rows;
   }
 }
