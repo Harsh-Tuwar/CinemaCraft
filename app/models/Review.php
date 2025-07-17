@@ -20,6 +20,17 @@ class Review {
     
     return $db->lastInsertId();
   }
+
+  public function getAllReviewsByUserId($userId) {
+    $db = db_connect();
+
+    $statement = $db->prepare("SELECT * FROM reviews WHERE userId = :user_id ORDER BY createdAt DESC");
+
+    $statement->bindValue(':user_id', $userId, PDO::PARAM_INT);
+    $statement->execute();
+    $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $rows;
+  }
 }
 
 ?>

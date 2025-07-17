@@ -8,7 +8,7 @@
     </ol>
   </nav>
 
-  <h1 class="mb-4">🎬 My Movie Reviews</h1>
+  <h1 class="mb-4">My Movie Reviews</h1>
 
   <?php if (empty($data['reviews'])): ?>
     <div class="alert alert-warning">No reviews submitted yet.</div>

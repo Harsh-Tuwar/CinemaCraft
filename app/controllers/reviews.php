@@ -20,7 +20,9 @@ class Reviews extends Controller {
   }
 
   public function all() {
-    $this->view('movie/reviews');
+    $reviews = $this->model('Review')->getAllReviewsByUserId($_SESSION['user_id']);
+    
+    $this->view('movie/reviews', ['reviews' => $reviews]);
     die;
   }
 }
