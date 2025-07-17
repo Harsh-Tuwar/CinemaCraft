@@ -1,4 +1,10 @@
-<?php require_once 'app/views/templates/headerPublic.php'; ?>
+<?php 
+if (!isset($_SESSION['auth'])) {
+  require_once 'app/views/templates/headerPublic.php'; 
+} else {
+  require_once 'app/views/templates/header.php';
+}
+?>
 
 <style>
   body {

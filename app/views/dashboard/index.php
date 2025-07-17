@@ -37,6 +37,9 @@
         </div>
       </div>
 
+      <div class="mt-5">
+        <?php require_once 'app/views/components/search.php'; ?>
+      </div>
     </div>
   </div>
 </main>
