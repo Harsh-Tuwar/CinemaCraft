@@ -78,7 +78,7 @@
     <div class="row g-3">
       <?php foreach ($data['movies']['Search'] as $movie): ?>
         <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-          <div class="movie-card" data-bs-toggle="modal" data-bs-target="#reviewModal" data-title="<?= htmlspecialchars($movie['Title']) ?>">
+          <div class="movie-card" data-imdbid="<?php echo $movie['imdbID'] ?>" data-bs-toggle="modal" data-bs-target="#reviewModal" data-title="<?= htmlspecialchars($movie['Title']) ?>">
             <?php
               $poster = ($movie['Poster'] !== 'N/A' && !empty($movie['Poster'])) && getimagesize($movie['Poster'])
                 ? htmlspecialchars($movie['Poster'])

@@ -21,7 +21,7 @@ class Movie extends Controller {
     } else {
       $movies = ['error' => 'No query provided' ];
     }
-
+    
     $this->view('movie/results', ['movies' => $movies]);
     die;
   }
