@@ -61,17 +61,25 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <!-- Left Links -->
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    
             <li class="nav-item">
               <a class="nav-link<?= $_SERVER['REQUEST_URI'] === '/dashboard' ? ' active' : '' ?>" href="/dashboard">Dashboard</a>
             </li>
+    
             <li class="nav-item">
               <a class="nav-link<?= str_contains($_SERVER['REQUEST_URI'], 'reminders') && !str_contains($_SERVER['REQUEST_URI'], 'reports') ? ' active' : '' ?>" href="/reminders">Reminders</a>
             </li>
+
+            <li class="nav-item">
+              <a class="nav-link<?= str_contains($_SERVER['REQUEST_URI'], 'reviews') ? ' active' : '' ?>" href="/reviews/all">Reviews</a>
+            </li>
+            
             <?php if (isset($_SESSION['admin'])): ?>
               <li class="nav-item">
                 <a class="nav-link<?= in_array($_SERVER['REQUEST_URI'], ['/reports', '/reports/all_logs', '/reports/reminders'])  ? ' active' : '' ?>" href="/reports">Reports</a>
               </li>
             <?php endif; ?>
+          
           </ul>
 
           <!-- Right Side: User + Logout -->

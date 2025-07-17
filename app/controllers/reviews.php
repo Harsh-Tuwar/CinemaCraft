@@ -18,6 +18,11 @@ class Reviews extends Controller {
       exit;
     }
   }
+
+  public function all() {
+    $this->view('movie/reviews');
+    die;
+  }
 }
 
 ?>
