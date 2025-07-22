@@ -93,7 +93,6 @@ if (!isset($_SESSION['auth'])) {
               alt="<?= htmlspecialchars($movie['Title']) ?>"
             >
             <input type="hidden" id="imdbId" value="<?= $movie['imdbID'] ?>">
-            <input type="hidden" id="review" value="<?= $movie['GeneratedReview'] ?>">
             
             <div class="movie-overlay">
               <p class="movie-title"><?= htmlspecialchars($movie['Title']) ?></p>
@@ -134,6 +133,10 @@ if (!isset($_SESSION['auth'])) {
           </div>
 
           <div id="modalGeneratedReview" class="mb-3 fst-italic text-secondary"></div>
+
+          <button type="button" class="btn btn-secondary" id="generateReviewButton">
+            Generate Review
+          </button>
         </div>
 
         <div class="modal-footer">
@@ -166,10 +169,32 @@ if (!isset($_SESSION['auth'])) {
       star.classList.add('bi-star');
     });
     document.getElementById('formRating').value = '';
+  });
 
-    // fetch generated review before showing
+  document.getElementById('generateReviewButton').addEventListener('click', () => {
+    const title = document.getElementById('formMovieTitle').value;
     const reviewContainer = document.getElementById('modalGeneratedReview');
-    reviewContainer.textContent = document.getElementById('review').value;
+
+    reviewContainer.textContent = 'Loading review...';
+
+    fetch(`/movies/generateReview?title=${encodeURIComponent(title)}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch review');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.review) {
+          reviewContainer.textContent = data.review;
+        } else {
+          reviewContainer.textContent = 'No review generated.';
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        reviewContainer.textContent = 'Error loading review.';
+      });
   });
 
   document.querySelectorAll('.star-rating i').forEach(star => {

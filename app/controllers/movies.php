@@ -16,14 +16,14 @@ class Movies extends Controller {
       try {
         $movies = $this->omdbApi->search($query);
 
-        if (sizeof($movies)) {
-          $movieModel = $this->model('Movie');
+        // if (sizeof($movies)) {
+          // $movieModel = $this->model('Movie');
 
-          foreach ($movies['Search'] as &$movie) {
-            $review = $movieModel->generate_review($movie['Title']);
-            $movie['GeneratedReview'] = $review;
-          }
-        }
+          // foreach ($movies['Search'] as &$movie) {
+            // $review = $movieModel->generate_review($movie['Title']);
+            // $movie['GeneratedReview'] = $review;
+          // }
+        // }
       } catch (Exception $e) {
         $movies = ['error' => $e->getMessage()];
       }
