@@ -44,6 +44,15 @@ class Api {
     }
     
     $response = curl_exec($ch);
+
+    // if ($this->baseUrl == "https://generativelanguage.googleapis.com/v1beta/models") {
+    //   echo "<pre>";
+    //   echo "===== CURL RAW RESPONSE =====\n";
+    //   print_r(curl_getinfo($ch));
+    //   echo "=============================\n";
+    //   echo "</pre>";
+    //   die;
+    // }
     
     if (curl_errno($ch)) {
       $error = curl_error($ch);
@@ -52,7 +61,7 @@ class Api {
     }
 
     curl_close($ch);
-
+    
     $decoded = json_decode($response, true);
 
     if ($decoded === null) {
