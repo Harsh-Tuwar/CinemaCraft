@@ -126,13 +126,31 @@ if (!isset($_SESSION['auth'])) {
 
           <p id="modalMovieTitle" class="mb-3 fw-bold"></p>
 
-          <div class="star-rating">
+          <div class="star-rating mb-3">
             <?php for ($i = 1; $i <= 5; $i++): ?>
               <i class="bi bi-star" data-value="<?= $i ?>"></i>
             <?php endfor; ?>
           </div>
 
-          <div id="modalGeneratedReview" class="mb-3 fst-italic text-secondary"></div>
+          <!-- <div id="modalGeneratedReview" class="mb-3 mx-auto px-3 py-2" style="
+            max-width: 90%;
+            background: rgba(248,249,250,0.6); /* soft translucent background */
+            backdrop-filter: blur(4px);
+            border-radius: 8px;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: #333;
+            text-align: left;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+          "> -->
+            <!-- Generated review will appear here -->
+          <!-- </div> -->
+          <!-- <textarea type="text" name="review" id="modalGeneratedReview" class="form-control mb-3" placeholder="Write your review here..." /> -->
+
+          <div class="mb-3">
+            <label for="modalGeneratedReview" class="form-label">Write your review</label>
+            <textarea class="form-control" id="modalGeneratedReview" rows="8"></textarea>
+          </div>
 
           <button type="button" class="btn btn-secondary" id="generateReviewButton">
             Generate Review
@@ -147,6 +165,7 @@ if (!isset($_SESSION['auth'])) {
     </div>
   </div>
 </form>
+
 
 
 <script>
@@ -171,11 +190,18 @@ if (!isset($_SESSION['auth'])) {
     document.getElementById('formRating').value = '';
   });
 
+  reviewModal.addEventListener('hidden.bs.modal', function () {
+    const reviewContainer = document.getElementById('modalGeneratedReview');
+
+    reviewContainer.value = '';
+  });
+
   document.getElementById('generateReviewButton').addEventListener('click', () => {
     const title = document.getElementById('formMovieTitle').value;
     const reviewContainer = document.getElementById('modalGeneratedReview');
 
-    reviewContainer.textContent = 'Loading review...';
+    reviewContainer.value = 'Loading review...';
+    reviewContainer.disabled = true;
 
     fetch(`/movies/generateReview?title=${encodeURIComponent(title)}`)
       .then(response => {
@@ -186,14 +212,16 @@ if (!isset($_SESSION['auth'])) {
       })
       .then(data => {
         if (data.review) {
-          reviewContainer.textContent = data.review;
+          reviewContainer.value = data.review;
         } else {
-          reviewContainer.textContent = 'No review generated.';
+          reviewContainer.value = 'No review generated.';
         }
       })
       .catch(error => {
         console.error(error);
-        reviewContainer.textContent = 'Error loading review.';
+        reviewContainer.value = 'Error loading review.';
+      }).finally(() => {
+        reviewContainer.disabled = false;
       });
   });
 
