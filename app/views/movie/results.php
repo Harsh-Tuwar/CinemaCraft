@@ -132,24 +132,9 @@ if (!isset($_SESSION['auth'])) {
             <?php endfor; ?>
           </div>
 
-          <!-- <div id="modalGeneratedReview" class="mb-3 mx-auto px-3 py-2" style="
-            max-width: 90%;
-            background: rgba(248,249,250,0.6); /* soft translucent background */
-            backdrop-filter: blur(4px);
-            border-radius: 8px;
-            font-style: italic;
-            font-size: 0.95rem;
-            color: #333;
-            text-align: left;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-          "> -->
-            <!-- Generated review will appear here -->
-          <!-- </div> -->
-          <!-- <textarea type="text" name="review" id="modalGeneratedReview" class="form-control mb-3" placeholder="Write your review here..." /> -->
-
           <div class="mb-3">
             <label for="modalGeneratedReview" class="form-label">Write your review</label>
-            <textarea class="form-control" id="modalGeneratedReview" rows="8"></textarea>
+            <textarea class="form-control" id="modalGeneratedReview" rows="8" placeholder="Write your review here..." name="review"></textarea>
           </div>
 
           <button type="button" class="btn btn-secondary" id="generateReviewButton">
