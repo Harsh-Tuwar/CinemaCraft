@@ -132,8 +132,8 @@ if (!isset($_SESSION['auth'])) {
             <?php endfor; ?>
           </div>
 
-          <div class="mb-3">
-            <label for="modalGeneratedReview" class="form-label">Write your review</label>
+          <div class="mb-3 text-start">
+            <label for="modalGeneratedReview" class="form-label bold">Write your review</label>
             <textarea class="form-control" id="modalGeneratedReview" rows="8" placeholder="Write your review here..." name="review"></textarea>
           </div>
 
@@ -185,7 +185,7 @@ if (!isset($_SESSION['auth'])) {
     const title = document.getElementById('formMovieTitle').value;
     const reviewContainer = document.getElementById('modalGeneratedReview');
 
-    reviewContainer.value = 'Loading review...';
+    reviewContainer.value = '🤖 Generating review using AI...';
     reviewContainer.disabled = true;
 
     fetch(`/movies/generateReview?title=${encodeURIComponent(title)}`)

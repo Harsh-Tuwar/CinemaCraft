@@ -3,11 +3,11 @@
 class Review {
   public function __construct() {}
   
-  public function save($userId, $movieTitle, $moviePoster, $imdbId, $rating) {
+  public function save($userId, $movieTitle, $moviePoster, $imdbId, $rating, $review) {
     $db = db_connect();
     $serverTimestamp = date('Y-m-d H:i:s');
     
-    $statement = $db->prepare("INSERT INTO reviews (userId, movieTitle, moviePosterUrl, imdbId, rating, createdAt) VALUES (:user_id, :movie_title, :movie_poster, :imdbId, :rating, :timestamp)");
+    $statement = $db->prepare("INSERT INTO reviews (userId, movieTitle, moviePosterUrl, imdbId, rating, createdAt, review) VALUES (:user_id, :movie_title, :movie_poster, :imdbId, :rating, :timestamp, :review)");
     
     $statement->bindValue(':user_id', $userId ?? 0, PDO::PARAM_INT);
     $statement->bindValue(':movie_title', $movieTitle);
@@ -15,6 +15,7 @@ class Review {
     $statement->bindValue(':imdbId', $imdbId);
     $statement->bindValue(':rating', intval($rating));
     $statement->bindParam(':timestamp', $serverTimestamp);
+    $statement->bindValue(':review', $review);
     
     $statement->execute();
     

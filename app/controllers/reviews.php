@@ -8,8 +8,11 @@ class Reviews extends Controller {
       $poster = filter_var($_POST['movie_poster'], FILTER_SANITIZE_URL);
       $imdbId = $_POST['imdbId'];
       $rating = $_POST['rating'];
+      
+      $review = filter_var($_POST['review'], FILTER_SANITIZE_STRING);
 
-      $this->model('Review')->save($userId, $title, $poster, $imdbId, $rating);
+      $this->model('Review')->save($userId, $title, $poster, $imdbId, $rating, $review);
+      
       if (isset($_SESSION['auth'])) {
         header('Location: /dashboard');
       } else {

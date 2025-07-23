@@ -15,15 +15,6 @@ class Movies extends Controller {
     if (!empty($query)) {
       try {
         $movies = $this->omdbApi->search($query);
-
-        // if (sizeof($movies)) {
-          // $movieModel = $this->model('Movie');
-
-          // foreach ($movies['Search'] as &$movie) {
-            // $review = $movieModel->generate_review($movie['Title']);
-            // $movie['GeneratedReview'] = $review;
-          // }
-        // }
       } catch (Exception $e) {
         $movies = ['error' => $e->getMessage()];
       }
