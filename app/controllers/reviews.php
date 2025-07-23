@@ -14,7 +14,7 @@ class Reviews extends Controller {
       $this->model('Review')->save($userId, $title, $poster, $imdbId, $rating, $review);
       
       if (isset($_SESSION['auth'])) {
-        header('Location: /dashboard');
+        header('Location: /reviews/all');
       } else {
         header('Location: /home');
       }

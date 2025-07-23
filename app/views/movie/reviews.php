@@ -50,7 +50,9 @@
     color: #fff;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: no-wrap;
+    /* white-space: normal; */
+    /* overflow-wrap: break-word; */
   }
   .movie-date {
     font-size: 0.8rem;
@@ -59,6 +61,10 @@
   .star-rating {
     color: #f1c40f;
     font-size: 1rem;
+  }
+  #modalMovieReview {
+    font-size: 1rem;
+    line-height: 1.6;
   }
 </style>
 
@@ -76,25 +82,33 @@
     <div class="alert alert-warning bg-dark text-white border border-warning">No reviews submitted yet.</div>
   <?php else: ?>
     <div class="position-relative" style="overflow: visible;">
-      <div class="review-scroll-container p-3">
+      <div class="row g-3">
         <?php foreach ($data['reviews'] as $review): ?>
-          <div class="movie-card">
-            <img 
-              src="<?= htmlspecialchars($review['moviePosterUrl'] ?? 'https://placehold.co/300x400?text=No+Poster') ?>" 
-              alt="<?= htmlspecialchars($review['movieTitle']) ?>"
-            >
-            <div class="movie-info">
-              <div class="movie-title"><?= htmlspecialchars($review['movieTitle']) ?></div>
-              <div class="movie-date">
-                <?= (new DateTime($review['createdAt']))->format('M j, Y') ?>
-              </div>
-              <div class="star-rating mt-1">
-                <?php
-                  $rating = (int)$review['rating'];
-                  for ($i = 1; $i <= 5; $i++) {
-                    echo $i <= $rating ? '★' : '☆';
-                  }
-                ?>
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+            <div class="movie-card" 
+             data-title="<?= htmlspecialchars($review['movieTitle']) ?>"
+             data-review="<?= htmlspecialchars(html_entity_decode($review['review']))  ?>"
+             data-bs-toggle="modal" 
+             data-bs-target="#movieReviewModal">
+              <img 
+                src="<?= htmlspecialchars($review['moviePosterUrl'] ?? 'https://placehold.co/300x400?text=No+Poster') ?>" 
+                alt="<?= htmlspecialchars($review['movieTitle']) ?>"
+              >
+              <div class="movie-info">
+                <div class="movie-title" style="white-space: normal; overflow-wrap: break-word;">
+                  <?= htmlspecialchars($review['movieTitle']) ?>
+                </div>
+                <div class="movie-date">
+                  <?= (new DateTime($review['createdAt']))->format('M j, Y') ?>
+                </div>
+                <div class="star-rating mt-1">
+                  <?php
+                    $rating = (int)$review['rating'];
+                    for ($i = 1; $i <= 5; $i++) {
+                      echo $i <= $rating ? '★' : '☆';
+                    }
+                  ?>
+                </div>
               </div>
             </div>
           </div>
@@ -103,5 +117,37 @@
     </div>
   <?php endif; ?>
 </div>
+
+<!-- Review Modal -->
+<div class="modal fade" id="movieReviewModal" tabindex="-1" aria-labelledby="movieReviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header">
+        <h5 class="modal-title" id="movieReviewModalLabel">Movie Review</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h5 id="modalMovieTitle"></h5>
+        <p id="modalMovieReview" class="mt-3"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const reviewModal = document.getElementById('movieReviewModal');
+
+  reviewModal.addEventListener('show.bs.modal', function (event) {
+    const card = event.relatedTarget;
+    const title = card.getAttribute('data-title');
+    const review = card.getAttribute('data-review');
+
+    document.getElementById('modalMovieTitle').textContent = title;
+    document.getElementById('modalMovieReview').textContent = review || 'No review available.';
+  });
+</script>
 
 <?php require_once 'app/views/templates/footer.php' ?>
