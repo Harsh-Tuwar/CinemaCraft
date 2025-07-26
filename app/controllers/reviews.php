@@ -1,6 +1,16 @@
 <?php
 
 class Reviews extends Controller {
+  
+  //  this function is not used, but it is here for redirect
+  public function index() {
+    if (isset($_SESSION['auth'])) {
+      header('Location: /reviews/all');
+    } else {
+      header('Location: /home');
+    }
+  }
+  
   public function submit() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $userId = $_POST['user_id'];
