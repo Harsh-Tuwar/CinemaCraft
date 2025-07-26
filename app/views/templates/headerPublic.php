@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>COSC 4806 | Dashboard</title>
+    <title>Cinema Craft | Dashboard</title>
     <link rel="icon" href="/favicon.png">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -46,7 +46,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
       <div class="container">
         <a class="navbar-brand text-primary" href="/">
-          <i class="bi bi-shield-lock-fill me-1"></i> COSC 4806
+          <i class="bi bi-shield-lock-fill me-1"></i> Cinema Craft
         </a>
         <div class="d-flex">
           <a href="/home" class="btn btn-link">Search a movie</a>
